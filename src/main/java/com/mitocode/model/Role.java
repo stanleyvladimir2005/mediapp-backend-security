@@ -7,15 +7,15 @@ import javax.validation.constraints.Size;
 
 @Data
 @Entity
-@Table(name = "rol")
-public class Rol {
+@Table(name = "role")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idRol;
+	private Integer idRole;
 
-	@Column(nullable = true, length = 50)
-	@Size(min = 3, message = "Apellidos debe tener minimo 3 caracteres")
+	@Column(length = 50)
+	@Size(min = 3)
 	private String name;
 
 	@Column(nullable = false, length = 150)

@@ -12,18 +12,16 @@ public class AuthServiceImpl {
         boolean rpta = false;
 
         String methodRole = switch (path) {
-            case "listar" -> "ADMIN";
-            case "listarPorId" -> "USER,DBA";
+            case "findAll" -> "ADMIN";
+            case "findById" -> "USER,DBA";
             default -> "";
         };
 
-        String metodoRoles[] = methodRole.split(",");
-
+        String methodRoles[] = methodRole.split(",");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         for (GrantedAuthority gra : auth.getAuthorities()) {
             String rolUser = gra.getAuthority();
-            for (String rolMet : metodoRoles) {
+            for (String rolMet : methodRoles) {
                 if (rolUser.equalsIgnoreCase(rolMet)) {
                     rpta = true;
                     break;
