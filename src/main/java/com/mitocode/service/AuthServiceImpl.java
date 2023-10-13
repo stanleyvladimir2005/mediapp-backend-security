@@ -10,14 +10,13 @@ public class AuthServiceImpl {
 
     public boolean hasAccess(String path){
         boolean rpta = false;
-
         String methodRole = switch (path) {
             case "findAll" -> "ADMIN";
             case "findById" -> "USER,DBA";
             default -> "";
         };
 
-        String methodRoles[] = methodRole.split(",");
+        String[] methodRoles = methodRole.split(",");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         for (GrantedAuthority gra : auth.getAuthorities()) {
             String rolUser = gra.getAuthority();

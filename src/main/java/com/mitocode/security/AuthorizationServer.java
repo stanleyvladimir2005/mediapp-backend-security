@@ -12,8 +12,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
-
-import java.util.Arrays;
+import java.util.Collections;
 
 //Tercera Clase
 @Configuration
@@ -61,7 +60,9 @@ public class AuthorizationServer extends AuthorizationServerConfigurerAdapter {
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints)  {
 		TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-		enhancerChain.setTokenEnhancers(Arrays.asList(accessTokenConverter));
-		endpoints.tokenStore(tokenStore).accessTokenConverter(accessTokenConverter).tokenEnhancer(enhancerChain).authenticationManager(authenticationManager);
+		enhancerChain.setTokenEnhancers(Collections.singletonList(accessTokenConverter));
+		endpoints.tokenStore(tokenStore)
+				.accessTokenConverter(accessTokenConverter)
+				.tokenEnhancer(enhancerChain).authenticationManager(authenticationManager);
 	}
 }

@@ -20,10 +20,9 @@ public class UserServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
         User user = repo.findOneByUsername(username);
         if(user == null)
-            throw new UsernameNotFoundException(String.format("User not exists", username));
+            throw new UsernameNotFoundException(String.format("User not exists" +username));
 
         List<GrantedAuthority> roles = new ArrayList<>();
         user.getRoles().forEach(rol -> roles.add(new SimpleGrantedAuthority(rol.getName())));
